@@ -1,0 +1,20 @@
+--2a iii)
+select LastName, FirstName, MemberID from Member where Coach is null;
+
+--2b iii)
+select LastName, FirstName, MemberID from Member where YEAR(JoinDate)='2013';
+
+--2c iii)
+select m.MemberID, m.LastName, m.FirstName
+from Member m
+inner join (
+select distinct MemberID from Entry where MemberID not in 
+(select MemberID from Entry where Year = '2013')
+) e
+On m.MemberID = e.MemberID;
+
+--2d 
+select FirstName, LastName, MemberID from Member 
+where MemberID in (select MemberID from Entry where Year='2013') 
+and MemberID in (select MemberID from Entry where Year='2014') 
+and MemberID in (select MemberID from Entry where Year='2015');
